@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM Assignment 3</title>
+    <link rel="stylesheet" href="https://shruthi.s3.jp-tok.cloud-object-storage.appdomain.cloud/style.css">
+</head>
+<body>
+    <div class="head">
+        <h1>Image And CSS fetched using object cloud</h1>
+    </div>
+    <img width="300px" src="https://shruthi.s3.jp-tok.cloud-object-storage.appdomain.cloud/ADUO7222.JPG" />
+    <img width="300px" src="https://shruthi.s3.jp-tok.cloud-object-storage.appdomain.cloud/DRUM9701.JPG" />
+	<img width="300px" src="https://shruthi.s3.jp-tok.cloud-object-storage.appdomain.cloud/ERCS7841.JPG" />
+	<img width="300px" src="https://shruthi.s3.jp-tok.cloud-object-storage.appdomain.cloud/FJJQ0493.JPG" />
+	<img width="300px" src="https://shruthi.s3.jp-tok.cloud-object-storage.appdomain.cloud/GBWB9908.JPG" />
+
+
+    <script>
+  window.watsonAssistantChatOptions = {
+    integrationID: "d19459ed-9d38-4a18-bb7b-9627a11af9b0", // The ID of this integration.
+    region: "au-syd", // The region your integration is hosted in.
+    serviceInstanceID: "e2dd9860-6728-4bdd-82cf-681b659835ef", // The ID of your service instance.
+    onLoad: function(instance) { instance.render(); }
+  };
+  setTimeout(function(){
+    const t=document.createElement('script');
+    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+    document.head.appendChild(t);
+  });
+</script>
+
+</body>
+</html>
