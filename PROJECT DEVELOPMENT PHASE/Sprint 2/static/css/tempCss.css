@@ -1,0 +1,15 @@
+
+
+.navbar {
+	border-bottom: 2px solid #bada55;
+}
+.navbar-brand {
+    margin-left :10px;
+}
+.list-nav{
+    padding:0 4px;
+}
+.list-nav:hover{
+  opacity:0.7;
+}
+}
