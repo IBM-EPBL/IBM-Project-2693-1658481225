@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% extends 'layout.html' %} {% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2 style="text-align:center; " class="text-light">Monthly Expense Chart</h2>
+<br><br><br>
+<input type="hidden" id="years" labels="{{context.labels}}">
+<input type="hidden" id="values" values="{{context.value}}">
+<div style="width:100%;height:100%">
+    <canvas id="myChart"></canvas>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+let years = document.getElementById('years').getAttribute('labels')
+years = years.slice(1,years.length-1).split(",")
+let values = document.getElementById('values').getAttribute('values')
+values = values.slice(1,values.length-1).split(",")
+console.log(years)
+const ctx = document.getElementById('myChart').getContext('2d');
+var barColors = [];
+for (let index = 0; index < years.length; index++) {
+  const r = Math.floor(Math.random()*255);
+  const g = Math.floor(Math.random()*255);
+  const b = Math.floor(Math.random()*255);
+  barColors.push('rgba('+r+','+g+','+b+', 0.4)')
+}
+const data = {
+  labels: years,
+  datasets: [{
+    label: 'My Expenses',
+    data: values,
+    backgroundColor: barColors,
+    hoverOffset: 4
+  }]
+};
+Chart.defaults.color = "white";
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+     options: {
+   plugins: {
+    legend: {
+      display: false
+    }
+  },
+    maintainAspectRatio: false,
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
+{% endblock %}
