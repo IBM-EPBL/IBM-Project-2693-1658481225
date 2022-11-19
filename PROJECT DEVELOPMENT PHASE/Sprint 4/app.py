@@ -9,7 +9,8 @@ from wtforms.fields.html5 import EmailField
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Mail, Message
 from flask_toastr import Toastr
-import configparser
+import os
+from dotenv import find_dotenv,load_dotenv
 import ssl
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
@@ -20,8 +21,12 @@ app = Flask(__name__)
 toastr = Toastr(app)
 app.secret_key = "ibm_team_cloud"
 
-config = configparser.ConfigParser()
-config.read("config.ini")
+dotenv_path = find_dotenv()
+load_dotenv(dotenv_path)
+
+API = os.getenv("APIKEY")
+from_email = os.getenv("FROM")
+
 
 def sendEmail(API,from_email,to,subject,html):
     if API!=None and from_email!=None and len(to)>0:
@@ -33,14 +38,6 @@ def sendEmail(API,from_email,to,subject,html):
         except Exception as e:
             print(e.message)
 
-try:
-    settings = config["SETTINGS"]
-except:
-    print('Cannot fetch')
-    settings = {}
-
-API = settings.get("APIKEY",None)
-from_email = settings.get("FROM",None)
 
 @app.route('/')
 def homepage():
