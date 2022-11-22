@@ -103,6 +103,7 @@ def login():
         password_input = request.form.get('psw')
         conn = connection.establish()
         res = connection.user_check(conn,email,password_input)
+        print('Hello')
         if(res!=False):
             print('Login Success')
             session['logged_in'] = True
@@ -358,4 +359,4 @@ def reset_token(token):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run( "0.0.0.0" , debug=True)
