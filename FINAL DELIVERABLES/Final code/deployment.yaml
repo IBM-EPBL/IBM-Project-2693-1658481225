@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drago
+  template:
+    metadata:
+      labels:
+        app: drago
+    spec:
+      containers:
+      - name: drago
+        image: icr.io/drago/expense-app
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service
+spec:
+  selector:
+    app: drago
+  type: NodePort
+  ports:
+   - port: 5000
+     nodePort: 31514
