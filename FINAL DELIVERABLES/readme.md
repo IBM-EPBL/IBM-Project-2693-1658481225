@@ -16,7 +16,7 @@ The app has the following features:
 Finally the app is successfully hosted and deployed in kubernetes
 ![alt text](./Final-code/img/kuber0.png)
 ![alt text](./Final-code/img/kuber1.png)
-![alt text](./Final-code/img/kuber3.png)
+![alt text](./Final-code/img/repo.jpg)
 
 
 
