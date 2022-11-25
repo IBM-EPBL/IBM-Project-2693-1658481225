@@ -1,5 +1,7 @@
 # Personal Expense Tracker Application
 
+Link : http://159.122.183.203:31514/
+
 The app has the following features:
 
 1. Login/Singup page connected to DB2 Database
@@ -16,5 +18,5 @@ Finally the app is successfully hosted and deployed in kubernetes
 ![alt text](./Final-code/img/kuber1.png)
 ![alt text](./Final-code/img/kuber3.png)
 
-Link : http://159.122.183.203:31514/
+
 
