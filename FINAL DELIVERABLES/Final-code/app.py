@@ -16,7 +16,7 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 ssl._create_default_https_context = ssl._create_unverified_context
 
-conn = connection.establish() 
+
 app = Flask(__name__)
 toastr = Toastr(app)
 app.secret_key = "ibm_team_cloud"
@@ -53,6 +53,7 @@ def question():
         useremail = session.get('usermail',None)
         pswd = session.get('pwd',None)
         print(useremail,pswd)
+        conn = connection.establish()
         connection.setuser(conn,money,budget,goal,useremail,pswd)
         flash('Details added successfully', 'success')
         return redirect(url_for('login'))
@@ -75,6 +76,8 @@ def signup():
         if(passw != rep_pass):
             flash('Confirm password doesnot match','error')
             return redirect(url_for('signup'))
+        else:
+            conn = connection.establish()
         if(connection.useremail_check(conn,email)==False):
             flash('User with email already exists, try again', 'warning')
             return redirect(url_for('signup'))
@@ -98,6 +101,7 @@ def login():
     if request.method == 'POST' :
         email = request.form.get('email')
         password_input = request.form.get('psw')
+        conn = connection.establish()
         res = connection.user_check(conn,email,password_input)
         print('Hello')
         if(res!=False):
@@ -126,6 +130,7 @@ def is_logged_in(f):
 
 @app.route('/profile')
 def profile():
+    conn = connection.establish()
     res = connection.get_userdetails(conn,session['userID'])
     res2 = connection.gettotalsum(conn, session['userID'])
     total = res2['SUM']
@@ -153,10 +158,12 @@ def addTransactions():
         amount = request.form['amount']
         description = request.form['description']
         category = request.form['category']
+        conn = connection.establish()
         connection.inserttransac(conn,session['userID'],amount,description,category)
         flash('Transaction Successfully Recorded', 'success')
         return redirect(url_for('addTransactions'))
     else:
+        conn = connection.establish()
         res = connection.gettotalsum(conn,session['userID'])
         total = res['SUM']
         budget = connection.get_budget(conn,session['userID'])
@@ -195,6 +202,7 @@ def editCurrentMonthTransaction(id):
     if request.method == 'POST' and form.validate():
         amount = request.form['amount']
         description = request.form['description']
+        conn = connection.establish()
         connection.updateTrans(conn,id,amount,description)
         flash('Transaction Updated', 'success')
         return redirect(url_for('addTransactions'))
@@ -202,6 +210,7 @@ def editCurrentMonthTransaction(id):
 
 @app.route('/category')
 def createBarCharts():
+    conn = connection.establish()
     res = connection.gettotalsum(conn, session['userID'])
     total = res['SUM']
     dict = connection.getalltransac(conn, session['userID'])
@@ -222,6 +231,7 @@ def createBarCharts():
 
 @app.route('/monthly_bar')
 def monthlyBar():
+    conn = connection.establish()
     res = connection.gettotalsum(conn, session['userID'])
     total = res['SUM']
     dict = connection.getalltransac(conn, session['userID'])
@@ -250,6 +260,7 @@ def monthlyBar():
 
 @app.route('/monthly_savings')
 def monthlysave():
+    conn = connection.establish()
     res = connection.gettotalsum(conn, session['userID'])
     total = res['SUM']
     dict = connection.getalltransac(conn, session['userID'])
@@ -295,6 +306,7 @@ def reset_request():
     form = RequestResetForm(request.form)
     if request.method == 'POST' and form.validate():
         email = form.email.data
+        conn = connection.establish()
         res = connection.get_useralld(conn,email)
         if res == False:
             flash('There is no account with that email. You must register first.', 'warning')
@@ -339,11 +351,11 @@ def reset_token(token):
     form = ResetPasswordForm(request.form)
     if request.method == 'POST' and form.validate():
         password = str(form.password.data)
+        conn = connection.establish()
         connection.reset_pass(conn,password,user_id)
         flash('Your password has been updated! You are now able to log in', 'success')
         return redirect(url_for('login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
-
 
 
 if __name__ == '__main__':

@@ -16,4 +16,5 @@ Finally the app is successfully hosted and deployed in kubernetes
 ![alt text](./Final-code/img/kuber1.png)
 ![alt text](./Final-code/img/kuber3.png)
 
+Link : http://159.122.183.203:31514/
 
